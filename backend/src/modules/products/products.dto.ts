@@ -2,8 +2,9 @@
 export interface ProductDTO {
     title: string;
     description: string;
-    image: string;
-    price: string;
+    images: string[];
+    prices: { price: string, oldPrice: string };
+    category: string;
 }
 
 

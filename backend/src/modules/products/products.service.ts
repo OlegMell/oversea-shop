@@ -45,6 +45,9 @@ export class ProductsService {
     async findAll(): Promise<Product[]> {
         // Get and return all products added to your db
         return await this.productModel.find()
+            .populate({
+                path: 'category',
+            })
             .exec();
     }
 
@@ -57,6 +60,9 @@ export class ProductsService {
         try {
             // Get and return the product from the db based on id
             return await this.productModel.findById( id )
+                .populate( {
+                    path: 'Category'
+                } )
                 .exec();
         } catch ( error ) {
             // In case of an error, return it as the server error

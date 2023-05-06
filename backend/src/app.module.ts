@@ -3,9 +3,11 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AppController } from './app.controller';
-import { ProductsController } from './products/products.controller';
+import { ProductsController } from './modules/products/products.controller';
 
-import { ProductsModule } from './products/products.module';
+import { ProductsModule } from './modules/products/products.module';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { CategoriesController } from './modules/categories/categories.controller';
 
 
 const ENV = process.env.NODE_ENV; // TODO make replacement for env file by build mode
@@ -19,8 +21,9 @@ const ENV = process.env.NODE_ENV; // TODO make replacement for env file by build
       dbName: process.env.DB_NAME as string,
     }),
     ProductsModule,
+    CategoriesModule,
   ],
-  controllers: [ AppController, ProductsController ],
+  controllers: [ AppController, ProductsController, CategoriesController ],
   providers: [],
 } )
 export class AppModule { }

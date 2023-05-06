@@ -4,7 +4,8 @@ import {
     Post,
     Get,
     Query,
-    UseGuards
+    UseGuards,
+    Patch
 } from '@nestjs/common';
 import {
     ProductsService
@@ -13,12 +14,12 @@ import {
     ProductDTO,
     ProductIdDTO
 } from './products.dto';
-import { AuthGuard } from '../guards/auth.guard';
+import { AuthGuard } from '../../guards/auth.guard';
 
 
 
 @Controller('products')
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 export class ProductsController {
 
     constructor(
@@ -49,5 +50,13 @@ export class ProductsController {
     async delete( @Query() productId: ProductIdDTO ) {
         let deleted_product = await this.productsService.delete( productId ); // Delete the product
         return deleted_product; // return the deleted product
+    }
+
+    @Patch('/update')
+    async update( @Query() productId: ProductIdDTO, @Body() product: ProductDTO ) {
+        console.log( productId );
+        console.log(product);
+        const updatedProduct = await this.productsService.update(productId, product);
+        return updatedProduct;
     }
 }
